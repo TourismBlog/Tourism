@@ -7,6 +7,6 @@
 * CSS
 * Javascript 
 * React
-* nodejs
-* express
+* Nodejs
+* Express
 * postgresql
