@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 
 function AddBlog() {
   const [blogData, setBlogData] = useState({
-    title: '',
-    content: '',
+    blog_title: "",
+    blog_description : "",
+    image : "",
+    place_name : "",
+    place_location : "jordan"
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setBlogData({
-      ...blogData,
-      [name]: value,
-    });
+    setBlogData({...blogData,[name]: value,});
   };
 
   const handleSubmit = () => {
-    // يمكنك هنا إرسال معلومات المدونة إلى الخادم أو القيام بالإجراءات اللازمة
+    
   };
 
   return (
@@ -45,4 +45,4 @@ function AddBlog() {
   );
 }
 
-export default AddBlogForm;
+export default AddBlog;

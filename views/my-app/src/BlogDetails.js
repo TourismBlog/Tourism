@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import "./BlogDetails.css"; // استيراد ملف CSS
 
-function BlogDetails() {
-  const { id } = useParams(); // استخراج المعرف من عنوان الصفحة
-  const [blog, setBlog] = useState({});
+const BlogDetails = () => {
+  const { id } = useParams();
+  const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    // استدعاء تفاصيل المدونة من الخادم باستخدام المعرف
-    axios.get(`http://localhost:8080/blog/${blog.blog_id}`)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
         setBlog(response.data);
-      })
-      .catch((error) => {
-        console.error('حدث خطأ: ', error);
-      });
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
   }, [id]);
 
-  return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Blog Details</h2>
-      <h3 className="text-xl font-semibold">{blog.blog_title}</h3>
-      <p>{blog.blog_description}</p>
-      <p>Author: {blog.the_user}</p>
-      <p>Place: {blog.place_location}</p>
-      <p>blog_description: {blog.blog_description}</p>
-      <p>blog_id: {blog.blog_id}</p>
+  if (!blog) {
+    return <div className="loading">Loading...</div>;
+  }
 
-      {blog.image && (
-        <img
-          src={blog.image} // عرض الصورة إذا كانت متوفرة
-          alt="صورة المدونة"
-          className="w-full max-h-48 object-cover rounded mb-4"
-        />
-      )}
-      <p>Place Name {blog.place_name}</p>
+  return (
+    <div className="blog-details-container">
+      <div className="blog-details-content">
+        <h2 className="blog-details-title">{blog.title}</h2>
+        <p className="blog-details-body">{blog.body}</p>
+      </div>
     </div>
   );
-}
+};
 
 export default BlogDetails;

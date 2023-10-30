@@ -1,7 +1,7 @@
 const db = require(`../models/config`);
 require('dotenv').config();
 
-async function rigester (req, res) {
+async function rig (req, res) {
     const {user_name, user_email, user_password} = req.body;
     try{
         const query = `INSERT INTO users (user_name, user_email, user_password)
@@ -29,16 +29,18 @@ async function rigester (req, res) {
 async function login (req, res) {
     const {user_email, user_password} = req.body;
     try{
+        console.log(user_email);
         const query = `select user_id, user_email, user_password from users where user_email = $1 and user_password = $2`;
         const values = [user_email, user_password];
         const result = await db.query(query, values);
         let user = (result.rows[0]);
+        console.log(user);
         if (user.user_email == user_email && user.user_password == user_password){
             process.env.theUserId = user.user_id;
             console.log(process.env.theUserId);
-            res.json("good");
+            res.json('good');
         } else {
-            res.json("not valid");
+            res.json('notgood');
         }
     } catch (error){
         console.error('Failed to login : ', error);
@@ -49,6 +51,6 @@ async function login (req, res) {
 
 
 module.exports = {
-    rigester,
+    rig,
     login,
 };

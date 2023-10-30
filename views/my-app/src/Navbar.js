@@ -1,37 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 function Navbar() {
   const navbarStyle = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#142735', 
+    color: 'white', 
+    padding: '2rem',
+    
   };
 
   const linksStyle = {
+    
     display: 'flex',
-    gap: '20px',
+    gap: '50px',
+    alignItems: 'center', 
+    flex: 1,
+    justifyContent: 'center',
+    fontSize: '20px',
   };
 
   return (
-    <nav className="bg-white p-4" style={navbarStyle}>
+    <nav style={navbarStyle}>
       <div className="container mx-auto">
-        <Link to="/" className="text-black text-2xl font-semibold">
-          Tourism blog in Jordan
-        </Link>
+     
         <ul style={linksStyle}>
           <li>
-            <Link to="/" className="text-black">
+            <Link to="/" className="text-white">
               HomePage
             </Link>
           </li>
           <li>
-            <Link to="/login" className="text-black">
+            <Link to="/login" className="text-white">
               Login
             </Link>
           </li>
           <li>
-            <Link to="/register" className="text-black">
+            <Link to="/register" className="text-white">
               Register
             </Link>
           </li>

@@ -1,46 +1,29 @@
 import React, { useState } from 'react';
+import BlogsForm from './BlogsForm'; 
+import './AddBlog.css';
 
-function AddBlog() {
-  const [blogData, setBlogData] = useState({
-    title: '',
-    content: '',
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBlogData({
-      ...blogData,
-      [name]: value,
-    });
+const AddBlog = () => {
+  const [blogs, setBlogs] = useState([]);
+
+  const addBlog = (newBlog) => {
+    setBlogs([...blogs, newBlog]);
   };
-
-  const handleSubmit = () => {
-    // يمكنك هنا إرسال معلومات المقالة إلى الخادم باستخدام مكتبة axios
-  }
 
   return (
     <div>
-      <h2>Add a Blog</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          value={blogData.title}
-          onChange={handleInputChange}
-        />
+      <BlogsForm onAddBlog={addBlog} />
+      <div className="blogs-list">
+        {blogs.map((blog, index) => (
+          <div className="blog-card" key={index}>
+            <h2>{blog.title}</h2>
+            <p>{blog.description}</p>
+           
+          </div>
+        ))}
       </div>
-      <div>
-        <textarea
-          placeholder="Content"
-          name="content"
-          value={blogData.content}
-          onChange={handleInputChange}
-        />
-      </div>
-      <button onClick={handleSubmit}>Add Blog</button>
     </div>
   );
-}
+};
 
 export default AddBlog;
